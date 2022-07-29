@@ -53,36 +53,82 @@
                 <h2>Menu</h2>
                 <p id="p_1">Show Databases</p>
                 <p id="p_2">Show Tabels</p>
+                <p id="p_3">Show Tabel Records</p>
+
             </div>
             <div id="right-col">
                 <h2>Detail</h2>
+                <div id="content"></div>
             </div>
         </div>
     <script>
         $(document).ready(function () {
 
-            $("h2").click(function () {
-                $("h2").text("Menu");
+            $("#left-col>h2").click(function () {
+                $("#left-col>h2").text("Menu");
                 $("#right-col").css("background-color", "#fff");
-                $("#p_1, #p_2").css("background-color", "");
+                $("#p_1, #p_2, #p_3").css("background-color", "");
+                $("#right-col>#content").empty();
+                
                 
             }),
             
             $("#p_1").click(function () {
                 $(this).css("background-color", "lightblue");
                 $("#right-col").css("background-color", "lightblue");
-                $("#p_2").css("background-color", "");
-                $("h2").text("< Back");
+                $("#p_2, #p_3").css("background-color", "");
+                $("#left-col>h2").text("< Back");
+                $.ajax({
+                    url:"show_db.php",
+                    type:"POST",
+                    // data: ,
+                    success:function(data){
+                        $("#right-col>#content").html(data);
+
+                    }
+
+                });
                 
             }),
 
             $("#p_2").click(function () {
-                $(this).css("background-color", "orange");
-                $("#right-col").css("background-color", "orange");
-                $("#p_1").css("background-color", "");
-                $("h2").text("< Back");
-                
+                $(this).css("background-color", "lightblue");
+                $("#right-col").css("background-color", "lightblue");
+                $("#p_1, #p_3").css("background-color", "");
+                $("#left-col>h2").text("< Back");
+                $("#right-col>#content").empty();
+                $.ajax({
+                    url:"show_table.php",
+                    type:"POST",
+                    // data: ,
+                    success:function(data){
+                        $("#right-col>#content").html(data);
+
+                    }
+
+                });
+
             })
+
+            $("#p_3").click(function () {
+                $(this).css("background-color", "lightblue");
+                $("#right-col").css("background-color", "lightblue");
+                $("#p_1,#p_2").css("background-color", "");
+                $("#left-col>h2").text("< Back");
+                $("#right-col>#content").empty();
+                $.ajax({
+                    url:"show_tlb_record.php",
+                    type:"POST",
+                    // data: ,
+                    success:function(data){
+                        $("#right-col>#content").html(data);
+
+                    }
+
+                });
+
+            })
+
            
 
             

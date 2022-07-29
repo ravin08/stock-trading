@@ -12,7 +12,7 @@ class mySqlDb{
    private $conn; 
 
     private function connect_to_db_server(){
-        // Create connection PDO
+        // Create connection PDO FIXME:Seperate connection to server and database
         $database = DATABASE;
         $server_name = SERVER_NAME;
         $user_name = USER_NAME;
@@ -25,8 +25,10 @@ class mySqlDb{
         $conn = new PDO($dsn, $user_name, $password);
 
         if ($conn) {
-            echo "Connected to the Databse: $db_name </br>";
+            // echo "Connected to the Databse: $db_name </br>";
             return $conn;
+        }else{
+            echo "Can not connected to database.";
         }
         
     }
@@ -56,10 +58,11 @@ class mySqlDb{
             $prepare-> execute();
             $result =$prepare-> fetchAll(pdo::FETCH_ASSOC);
             if($result){
-                echo "Congartulation: MySql Operation Sucessfuly.</br>";
-                echo "'{$this->qry}' </br>";
+                // echo "Congartulation: MySql Operation Sucessfuly.</br>";
+                // echo "'{$this->qry}' </br>";
             }else{
                 echo "Sorry: MySql Operation Not Sucessfuly.</br>";
+                die;
             }
 
             return $result;
@@ -67,10 +70,11 @@ class mySqlDb{
             $prepare = $conn->prepare($this->qry);
             $result = $prepare-> execute();
             if($result){
-                echo "Congartulation: MySql Operation Sucessfuly.</br>";
-                echo "$this->qry </br>";
+                // echo "Congartulation: MySql Operation Sucessfuly.</br>";
+                // echo "$this->qry </br>";
             }else{
                 echo "Sorry: MySql Operation Not Sucessfuly.</br>";
+                die;
             }
             return $result;
         }
